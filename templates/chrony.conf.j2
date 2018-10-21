@@ -1,0 +1,69 @@
+# {{ ansible_managed }}
+# Derived from https://github.com/vaizard/mage-chrony/blob/master/templates/chrony.conf.j2
+#
+# Welcome to the chrony configuration file. See chrony.conf(5) for more
+# information about usuable directives.
+
+# This will use (up to):
+# - 4 sources from ntp.ubuntu.com which some are ipv6 enabled
+# - 2 sources from 2.ubuntu.pool.ntp.org which is ipv6 enabled as well
+# - 1 source from [01].ubuntu.pool.ntp.org each (ipv4 only atm)
+# This means by default, up to 6 dual-stack and up to 2 additional IPv4-only
+# sources will be used.
+# At the same time it retains some protection against one of the entries being
+# down (compare to just using one of the lines). See (LP: #1754358) for the
+# discussion.
+#
+# About using servers from the NTP Pool Project in general see (LP: #104525).
+# Approved by Ubuntu Technical Board on 2011-02-08.
+# See http://www.pool.ntp.org/join.html for more information.
+
+{% if chrony_ntp_sources is defined and chrony_ntp_sources | length > 0 %}
+{% for ntp_source in chrony_ntp_sources %}
+{{ ntp_source }}
+{% endfor %}
+{% endif %}
+
+# This directive specify the location of the file containing ID/key pairs for
+# NTP authentication.
+keyfile /etc/chrony/chrony.keys
+
+# This directive specify the file into which chronyd will store the rate
+# information.
+driftfile /var/lib/chrony/chrony.drift
+
+# Uncomment the following line to turn logging on.
+log tracking measurements statistics
+
+# Log files location.
+logdir /var/log/chrony
+
+# This directive forces `chronyd' to send a message to syslog if it
+# makes a system clock adjustment larger than a threshold value in seconds.
+
+logchange {{ chrony_log_treshold | default('0.5') }}
+
+# Stop bad estimates upsetting machine clock.
+maxupdateskew 100.0
+
+# This directive enables kernel synchronisation (every 11 minutes) of the
+# real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
+rtcsync
+
+# Step the system clock instead of slewing it if the adjustment is larger than
+# one second, but only in the first three clock updates.
+makestep 1 3
+
+# This directive defines an email address to which mail should be sent
+# if chronyd applies a correction exceeding a particular threshold to the
+# system clock.
+mailonchange {{ admin_email }} {{ chrony_notif_treshold | default('0.5') }}
+
+# If you don’t need to serve time to NTP clients or peers, this directive
+# completely disables the NTP server functionality and prevent NTP requests from
+# reaching chronyd.
+port 0
+
+# This directive tightens security. It allows only root and the chrony user to
+# call chronyc.
+cmdport 0

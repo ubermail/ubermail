@@ -1,0 +1,104 @@
+---
+
+ubermail_packages_base:
+  - apache2
+  - apt-transport-https
+  - apticron
+  - build-essential
+  - debian-goodies
+  - git
+  - htop
+  - iftop
+  - iotop
+  - molly-guard
+  - mosh
+  - python3-software-properties
+  - ruby
+  - screen
+  - sudo
+  - unattended-upgrades
+  - vim
+  - zsh
+
+ubermail_packages_postgres:
+  - "postgresql-{{ postgres_version }}"
+  - python-psycopg2
+  - libpq-dev
+
+ubermail_packages_security:
+  - fail2ban
+  - whois
+  - lynis
+  - rkhunter
+
+ubermail_packages_googleauth:
+  - libpam-google-authenticator
+  - libpam0g-dev
+  - libqrencode3
+
+ubermail_packages_encfs:
+  - encfs
+  - fuse
+  - libfuse-dev
+
+ubermail_packages_postfix:
+  - libsasl2-modules
+  - postfix
+  - postfix-pcre
+  - postfix-pgsql
+  - python-psycopg2
+  - sasl2-bin
+  # graylist filtering is done by rspamd, don't add postgrey here
+
+ubermail_packages_dovecot:
+  - dovecot-core
+  - dovecot-imapd
+  - dovecot-lmtpd
+  - dovecot-managesieved
+  - dovecot-pgsql
+  - dovecot-pop3d
+  - dovecot-antispam
+
+ubermail_packages_rspamd:
+  - rspamd
+  - redis-server   # rspamd caching
+  - clamav         # rspamd antivirus
+  - clamav-daemon  # rspamd antivirus
+  - unbound        # rspamd dns resolver
+
+ubermail_packages_solr:
+  - dovecot-solr
+  - solr-tomcat
+
+ubermail_packages_zpush:
+  - php-soap
+  - php
+  - php-cli
+  - php-imap
+
+ubermail_packages_logwatch:
+  - libdate-manip-perl
+  - logwatch
+
+ubermail_packages_roundcube:
+  - php
+  - php-sqlite3
+  - php-gd
+  - php-pspell
+  - php-intl
+  - php-curl
+  - php-mbstring
+  - php-dom
+  - php-xml
+  - php-iconv
+  - php-zip
+  - php-fileinfo
+  - composer
+  - aspell
+  - aspell-cs
+  - aspell-de
+  - aspell-en
+  - aspell-fr
+  - aspell-es
+  - aspell-pt
+  - aspell-pl

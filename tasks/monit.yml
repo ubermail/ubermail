@@ -1,0 +1,36 @@
+- name: Add monitoring vhost to apache
+  copy: src=etc_apache2_sites-available_00-status.conf dest=/etc/apache2/sites-available/00-status.conf
+
+- name: Enable the status vhost
+  command: a2ensite 00-status.conf creates=/etc/apache2/sites-enabled/00-status.conf
+  notify: restart apache
+
+- name: Install monit
+  apt: pkg=monit state=present
+  tags:
+    - dependencies
+
+- name: Copy monit master config file into place
+  copy: src=etc_monit_monitrc dest=/etc/monit/monitrc
+  notify: restart monit
+
+#- name: Determine if ZNC is installed
+#  stat: path=/usr/lib/znc/configs/znc.conf
+#  register: znc_config_file
+
+#- name: Copy ZNC monit service config files into place
+#  copy: src=etc_monit_conf.d_znc dest=/etc/monit/conf.d/znc
+#  notify: restart monit
+#  when: znc_config_file.stat.exists == True
+
+- name: Copy monit service config files into place
+  copy: src=etc_monit_conf.d_{{ item }} dest=/etc/monit/conf.d/{{ item }}
+  with_items:
+    - apache2
+    - dovecot
+    - pgsql
+    - postfix
+    - sshd
+    - tomcat
+  notify: restart monit
+

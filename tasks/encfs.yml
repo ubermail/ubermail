@@ -1,0 +1,24 @@
+- name: Install encfs & fuse
+  apt: pkg={{ ubermail_packages_encfs }} state=present
+  tags:
+    - dependencies
+
+- name: Create encrypted directory
+  file: state=directory path=/encrypted
+
+- name: Check if the /encrypted directory is empty
+  shell: ls /encrypted/*
+  ignore_errors: True
+  changed_when: False  # never report as "changed"
+  register: encfs_check
+
+- name: If /encrypted is empty, create the encfs there
+  shell: printf "p\n{{ encfs_password }}" | encfs /encrypted /decrypted --public --stdinpass && touch /decrypted/test
+  when: encfs_check.rc > 0
+
+- name: If /encrypted isn't empty, mount it (but only if /decrypted/test doesn't exist)
+  shell: command="printf '{{ encfs_password }}' | encfs /encrypted /decrypted --public --stdinpass" creates="/decrypted/test"
+  when: encfs_check.rc == 0
+
+- name: Set decrypted directory permissions
+  file: state=directory path=/decrypted group=mail mode=0775
