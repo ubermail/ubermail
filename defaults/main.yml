@@ -26,19 +26,13 @@ kex_algorithms: "diffie-hellman-group-exchange-sha256"
 ciphers: "aes256-ctr,aes192-ctr,aes128-ctr"
 #macs: "hmac-sha2-512,hmac-sha2-256,hmac-ripemd160"
 macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com"
+
 # ntp
-ntp_servers:
-  # use nearby ntp servers by default
-  - 0.pool.ntp.org
-  - 1.pool.ntp.org
-  - 2.pool.ntp.org
-  - 3.pool.ntp.org
-  # use servers tailored to the server location
-  # See http://www.pool.ntp.org/en/use.html
-  # - 0.north-america.pool.ntp.org
-  # - 1.north-america.pool.ntp.org
-  # - 2.north-america.pool.ntp.org
-  # - 3.north-america.pool.ntp.org
+chrony_ntp_sources:
+  - pool ntp.ubuntu.com        iburst maxsources 4
+  - pool 0.ubuntu.pool.ntp.org iburst maxsources 1
+  - pool 1.ubuntu.pool.ntp.org iburst maxsources 1
+  - pool 2.ubuntu.pool.ntp.org iburst maxsources 2
 
 mail_db_username: 'mailuser'
 mail_db_password: "{{ lookup('password', secret + '/' + 'mail_db_password', length=32) }}"
