@@ -1,19 +1,4 @@
 ---
-# Defines tasks applicable for postgreSQL
-
-#- name: Install official repo gpg key
-#  sudo: yes
-#  apt_key:
-#    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-#    id: ACCC4CF8
-#    state: present
-
-#- name: Install official repository
-#  sudo: yes
-#  apt_repository:
-#    repo: "deb https://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main"
-#    state: present
-#    update_cache: yes
 
 - name: Install Postgres
   apt: pkg={{ ubermail_packages_postgres }} state=present

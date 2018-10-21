@@ -15,7 +15,6 @@ While using Sovereign, i kept running into small but annoying issues, that mosty
 
 - [x] Ported from Debian 8 to Ubuntu 18.04
 - [x] Postgres bump to 10
-- [ ] Postgres bump to 11
 - [x] Dropping postgrey in favour of the graylisting rspamd filter
 - [x] Bumping Solr/Tomcat
 - [ ] Bumping z-push
