@@ -1,0 +1,13 @@
+---
+- name: Install imapsync dependencies
+  apt: pkg={{ ubermail_packages_imapsync }} state=present
+  tags:
+    - dependencies
+
+- name: Clone imapsync
+  git: repo=https://github.com/imapsync/imapsync.git
+       dest=/opt/imapsync
+       version={{ imapsync_version }}
+       update=yes
+       accept_hostkey=yes
+

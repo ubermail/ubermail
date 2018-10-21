@@ -65,6 +65,7 @@
 - include: checkrbl.yml tags=checkrbl
 - include: z-push.yml tags=zpush
 - include: autoconfig.yml tags=autoconfig
+- include: imapsync.yml tags=imapsync
 
 - include: roundcube.yml tags=roundcube
 
