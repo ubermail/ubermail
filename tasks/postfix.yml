@@ -1,0 +1,48 @@
+- name: Install Postfix and related packages
+  apt: pkg={{ ubermail_packages_postfix }} state=present
+  tags:
+    - dependencies
+
+- name: Create database user for mail server
+  postgresql_user: login_host=localhost login_user={{ db_admin_username }} login_password="{{ db_admin_password }}" name={{ mail_db_username }} password="{{ mail_db_password }}" encrypted=yes state=present
+  notify: import sql postfix
+
+- name: Create database for mail server
+  postgresql_db: login_host=localhost login_user={{ db_admin_username }} login_password="{{ db_admin_password }}" name={{ mail_db_database }} state=present owner={{ mail_db_username }}
+  notify: import sql postfix
+
+- name: Copy import.sql
+  template: src=mailserver.sql.j2 dest=/etc/postfix/import.sql owner=root group=root mode=0600
+  notify: import sql postfix
+
+- name: Create postfix maps directory
+  file: path=/etc/postfix/maps state=directory owner=root group=root
+  when: mail_header_privacy == 1
+
+- name: Copy smtp_header_checks.pcre
+  copy: src=etc_postfix_maps_smtp_header_checks.pcre dest=/etc/postfix/maps/smtp_header_checks.pcre owner=root group=root
+  when: mail_header_privacy == 1
+
+- name: Copy main.cf
+  template: src=etc_postfix_main.cf.j2 dest=/etc/postfix/main.cf owner=root group=root
+  notify: restart postfix
+
+- name: Copy master.cf
+  copy: src=etc_postfix_master.cf dest=/etc/postfix/master.cf owner=root group=root
+  notify: restart postfix
+
+- name: Copy additional postfix configuration files
+  template: src=etc_postfix_{{ item }}.j2 dest=/etc/postfix/{{ item }} owner=root group=root
+  with_items:
+    - pgsql-virtual-alias-maps.cf
+    - pgsql-virtual-mailbox-domains.cf
+    - pgsql-virtual-mailbox-maps.cf
+  notify: restart postfix
+
+- name: Set firewall rules for postfix
+  ufw: rule=allow port={{ item }} proto=tcp
+  with_items:
+    - smtp
+    - ssmtp
+    - submission
+  tags: ufw

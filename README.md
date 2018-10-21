@@ -9,7 +9,7 @@ While using Sovereign, i kept running into small but annoying issues, that mosty
 
 - further refactor the code while making up my mind on "how" along the way
 - stick to providing a complete mailstack only
-- cherrypicki ideas from Sovereign-propper and other cool projects such as Mailcow or IRedMail.
+- cherrypicking ideas from Sovereign-propper and other cool projects such as Mailcow or IRedMail.
 
 ## Roadmap
 
@@ -20,10 +20,30 @@ While using Sovereign, i kept running into small but annoying issues, that mosty
 - [ ] Bumping Solr/Tomcat
 - [ ] Bumping z-push
 - [ ] Adding support for https://github.com/imapsync/imapsync/
-- [ ] Improving the webmail experience (roundcube bump, roundcube plugins, other clients)
+- [x] Improving the webmail experience (roundcube bump, roundcube plugins, other clients)
 - [x] Code cleanup
 - [ ] Multidomain autoconfig support
+- [x] Replace ntp with crony
 - [ ] ...
+
+## Requirements
+
+This role currently requires simmilar DNS records:
+
+```
+example.com 	MX 	mail.example.com
+example.com 	A 	<your-ip-addr>
+autoconfig.example.com 	A 	<your-ip-addr>
+mail.example.com 	A 	<your-ip-addr>
+```
+
+## Expectable result
+
+- A complete mailstack with postfix/dovecot/rspamd/solr/roundcubemail/certbot
+- Rspamd providing graylisting, antivirus, spamfiltering, dkim
+- Monitoring and security provided by monit, collectd, and lots of other utilities
+- Webmail on https://mail.example.com/
+- Rspamd administration on https://mail.example.com/rspamd/
 
 ## Contributions welcomed
 

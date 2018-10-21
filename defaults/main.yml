@@ -1,0 +1,74 @@
+---
+
+common_timezone: 'Etc/UTC'
+admin_email: "{{ main_user_name }}@{{ domain }}"
+main_user_shell: "/bin/bash"
+friendly_networks:
+  - ""
+
+# encfs
+encfs_enabled: false
+secret_root: '{{ inventory_dir | realpath }}'
+secret_name: 'secret'
+secret: '{{ secret_root + "/" + secret_name }}'
+encfs_password: "{{ lookup('password', secret + '/' + 'encfs_password', length=32) }}"
+
+#postgres
+db_admin_username: 'postgres'
+db_admin_password: "{{ lookup('password', secret + '/' + 'db_admin_password', length=32) }}"
+postgres_version: 10
+
+# let's encrypt
+letsencrypt_server: "https://acme-v01.api.letsencrypt.org/directory"
+
+# ssh
+kex_algorithms: "diffie-hellman-group-exchange-sha256"
+ciphers: "aes256-ctr,aes192-ctr,aes128-ctr"
+#macs: "hmac-sha2-512,hmac-sha2-256,hmac-ripemd160"
+macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com"
+# ntp
+ntp_servers:
+  # use nearby ntp servers by default
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+  # use servers tailored to the server location
+  # See http://www.pool.ntp.org/en/use.html
+  # - 0.north-america.pool.ntp.org
+  # - 1.north-america.pool.ntp.org
+  # - 2.north-america.pool.ntp.org
+  # - 3.north-america.pool.ntp.org
+
+mail_db_username: 'mailuser'
+mail_db_password: "{{ lookup('password', secret + '/' + 'mail_db_password', length=32) }}"
+mail_db_database: 'mailserver'
+
+mail_server_hostname: "mail.{{ domain }}"
+mail_server_autoconfig_hostname: "autoconfig.{{ domain }}"
+webmail_domain: "{{ mail_server_hostname }}" # Keep in sync with mail_server_hostname in mailserver role
+webmail_version: 1.4-beta
+le_domain: "{{ domain }}"
+dovecot_debug: "no"
+
+mail_header_privacy: 1
+
+# virtual domains
+mail_virtual_domains: []
+mail_virtual_users: []
+mail_virtual_aliases: []
+
+# zpush
+zpush_version: 2.1.1-1788
+# common_timezone is a sovereign variable
+zpush_timezone: "{{ common_timezone|default('Etc/UTC') }}"
+
+# set the rspamd password. this cannot be automated, get a pw with 
+# `openssl rand -base64 32` and hash it with `rspamadm pw`. Use the hash here.
+mail_rspamd_password: ""
+organization: "{{ domain }}"
+
+collectd_version: 5.4.1
+collectd_librato_version: 0.0.10
+collectd_librato_email: "" # (optional)
+collectd_librato_api_token: "" # (optional)

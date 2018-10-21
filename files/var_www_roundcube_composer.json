@@ -1,0 +1,47 @@
+{
+    "name": "roundcube/roundcubemail",
+    "description": "The Roundcube Webmail suite",
+    "license": "GPL-3.0+",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://plugins.roundcube.net/"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/roundcube/Net_Sieve.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://git.kolab.org/diffusion/PNL/php-net_ldap.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "pear/pear-core-minimal": "~1.10.1",
+        "roundcube/plugin-installer": "~0.1.6",
+        "pear/net_socket": "~1.2.1",
+        "pear/auth_sasl": "~1.1.0",
+        "pear/net_idna2": "~0.2.0",
+        "pear/mail_mime": "~1.10.0",
+        "pear/net_smtp": "~1.8.1",
+        "pear/crypt_gpg": "~1.6.3",
+        "pear/net_sieve": "~1.4.3",
+        "endroid/qr-code": "~1.6.5",
+        "masterminds/html5": "~2.3.0",
+        "alexandregz/twofactor_gauthenticator": "dev-master",
+	"roundcube/carddav": "dev-master",
+        "johndoh/contextmenu": "~2.1.2",
+        "teon/automatic_addressbook_ng": "dev-master",
+        "kitist/html5_notifier": "dev-master",
+        "melanie2/infinitescroll": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "suggest": {
+        "pear-pear.php.net/net_ldap2": "~2.2.0 required for connecting to LDAP address books",
+        "kolab/Net_LDAP3": "dev-master required for connecting to LDAP address books"
+    },
+    "minimum-stability": "dev"
+}
