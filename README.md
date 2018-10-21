@@ -15,11 +15,10 @@ While using Sovereign, i kept running into small but annoying issues, that mosty
 
 - [x] Ported from Debian 8 to Ubuntu 18.04
 - [x] Postgres bump to 10
-- [ ] Postgres bump to 11
 - [x] Dropping postgrey in favour of the graylisting rspamd filter
-- [ ] Bumping Solr/Tomcat
+- [x] Bumping Solr/Tomcat
 - [ ] Bumping z-push
-- [ ] Adding support for https://github.com/imapsync/imapsync/
+- [x] Adding support for https://github.com/imapsync/imapsync/
 - [x] Improving the webmail experience (roundcube bump, roundcube plugins, other clients)
 - [x] Code cleanup
 - [ ] Multidomain autoconfig support

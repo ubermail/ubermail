@@ -5,30 +5,65 @@ destemail = {{ admin_email }}
 banaction = iptables-multiport
 action    = %(action_)s
 
+
 # JAILS
-[ssh]
+
+[sshd]
 enabled   = true
 maxretry  = 3
+mode = aggressive
 
 [pam-generic]
 enabled   = true
 banaction = iptables-allports
 
-[ssh-ddos]
-enabled   = true
-
-[apache]
+[dovecot]
 enabled = true
+filter = dovecot
+port = pop3,pop3s,imap,imaps
+#action = iptables-multiport[name=dovecot-pop3imap, port="pop3,imap,993,995", protocol=tcp]
+logpath = /var/log/mail.log
+maxretry = 6
+findtime = 600
+bantime = 600
 
 [postfix]
 enabled  = true
-maxretry = 1
+port     = smtp,ssmtp
+filter   = postfix
+logpath  = /var/log/mail.log
+maxretry  = 3
+findtime = 600
+bantime = 600
+mode = extra
 
-[dovecot-pop3imap]
-enabled = true
-filter = dovecot-pop3imap
-action = iptables-multiport[name=dovecot-pop3imap, port="pop3,imap,993,995", protocol=tcp]
-logpath = /var/log/mail.log
-maxretry = 20
-findtime = 1200
-bantime = 1200
+[apache-overflows] 
+enabled = true 
+port = http,https 
+filter = apache-overflows 
+logpath = /var/log/apache2/*error.log 
+maxretry = 3 
+bantime = 1800 
+
+[apache-badbots] 
+enabled = true 
+port = http,https 
+filter = apache-badbots
+logpath = /var/log/apache2/*error.log 
+maxretry = 1
+bantime = 1800
+
+[apache-shellshock] 
+enabled = true 
+port = http,https 
+filter = apache-shellshock
+logpath = /var/log/apache2/*error.log 
+maxretry = 1
+bantime = 1800
+
+[roundcube-auth] 
+enabled = true 
+filter = roundcube-auth
+logpath = /var/www/roundcube/logs/errors.log 
+maxretry = 3
+bantime = 300

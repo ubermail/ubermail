@@ -102,3 +102,37 @@ ubermail_packages_roundcube:
   - aspell-es
   - aspell-pt
   - aspell-pl
+
+ubermail_packages_imapsync:
+  - libauthen-ntlm-perl
+  - libclass-load-perl 
+  - libcrypt-ssleay-perl
+  - libdata-uniqid-perl
+  - libdigest-hmac-perl
+  - libdist-checkconflicts-perl
+  - libfile-copy-recursive-perl
+  - libio-compress-perl
+  - libio-socket-inet6-perl
+  - libio-socket-ssl-perl
+  - libio-tee-perl
+  - libmail-imapclient-perl
+  - libmodule-scandeps-perl
+  - libnet-ssleay-perl
+  - libpar-packer-perl
+  - libreadonly-perl
+  - libregexp-common-perl
+  - libssl-dev
+  - libsys-meminfo-perl
+  - libterm-readkey-perl
+  - libtest-fatal-perl
+  - libtest-mock-guard-perl
+  - libtest-pod-perl
+  - libtest-requires-perl
+  - libtest-simple-perl
+  - libunicode-string-perl
+  - liburi-perl
+  - libtest-nowarnings-perl
+  - libtest-deep-perl
+  - libtest-warn-perl
+  - make
+  - cpanminus
