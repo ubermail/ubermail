@@ -38,3 +38,8 @@
 - name: restart collectd
   service: name=collectd state=restarted
 
+- name: resieve spam mover
+  command: sievec no-spam.sieve
+  args:
+    chdir: /etc/dovecot/sieve/before.d
+    creates: no-spam.svbin

@@ -47,3 +47,19 @@ mail.example.com 	A 	<your-ip-addr>
 ## Contributions welcomed
 
 Wanna send a PR? Wanna join as a dev/release eng.? Wanna help otherwise? Great! I'll be really happy to welcome you on board.
+
+## Notes
+
+- Test your (inbound mail) spamfilter with https://www.emailsecuritycheck.net/
+- Test your (outbound mail) spammyness with https://www.mail-tester.com/
+
+## Similar projects
+
+Ubermail is not for you? Grab a copy of
+
+- http://github.com/sovereign/sovereign
+- https://github.com/Mailu/Mailu (https://mailu.io)
+- https://github.com/mattsta/mailweb (https://matt.sh/email2018)
+- https://github.com/mailcow/mailcow-dockerized (https://mailcow.email/)
+- https://www.iredmail.org/
+
