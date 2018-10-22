@@ -47,3 +47,8 @@ mail.example.com 	A 	<your-ip-addr>
 ## Contributions welcomed
 
 Wanna send a PR? Wanna join as a dev/release eng.? Wanna help otherwise? Great! I'll be really happy to welcome you on board.
+
+## Notes
+
+- Test your (inbound mail) spamfilter with https://www.emailsecuritycheck.net/
+- Test your (outbound mail) spammyness with https://www.mail-tester.com/
