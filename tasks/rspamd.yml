@@ -39,6 +39,17 @@
     - "antivirus.conf"
     - "options.inc"
     - "dmarc.conf"
+    - "asn.conf"
+    - "greylist.conf"
+    - "ip_score.conf"
+    - "metrics.conf"
+    - "milter_headers.conf"
+    - "mx_check.conf"
+    - "phishing.conf"
+    - "surbl.conf"
+    - "url_reputation.conf"
+    - "url_tags.conf"
+
   notify: restart rspamd
 
 - name: Copy DKIM configuration into place
