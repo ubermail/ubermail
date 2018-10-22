@@ -27,7 +27,9 @@
 
 - name: Create before.d sieve scripts directory
   file: path=/etc/dovecot/sieve/before.d state=directory owner=vmail group=dovecot recurse=yes mode=0770
-  notify: restart dovecot
+  notify: 
+    - resieve spam mover
+    - restart dovecot
 
 - name: Configure sieve script moving spam into Junk folder
   copy: src=etc_dovecot_sieve_before.d_no-spam.sieve dest=/etc/dovecot/sieve/before.d/no-spam.sieve owner=vmail group=dovecot
