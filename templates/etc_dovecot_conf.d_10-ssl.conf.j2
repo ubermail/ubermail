@@ -43,7 +43,7 @@ ssl_client_ca_dir = /etc/ssl/certs
 #ssl_cert_username_field = commonName
 
 # DH parameters length to use.
-ssl_dh_parameters_length = 2048
+ssl_dh_parameters_length = {{ dovecot_ssl_dh_parameters_length }}
 
 # How often to regenerate the SSL parameters file. Generation is quite CPU
 # intensive operation. The value is in hours, 0 disables regeneration
@@ -51,13 +51,13 @@ ssl_dh_parameters_length = 2048
 #ssl_parameters_regenerate = 168
 
 # SSL protocols to use
-ssl_protocols = !SSLv2 !SSLv3
+ssl_protocols = {{ dovecot_ssl_protocols }}
 
 # SSL ciphers to use
-#ssl_cipher_list = ALL:!LOW:!SSLv2:!EXP:!aNULL
+ssl_cipher_list = {{ dovecot_ssl_cipher_list }}
 
 # Prefer the server's order of ciphers over client's.
-#ssl_prefer_server_ciphers = no
+ssl_prefer_server_ciphers = yes
 
 # SSL crypto device to use, for valid values run "openssl engine"
 #ssl_crypto_device =
