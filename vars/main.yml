@@ -75,9 +75,19 @@ ubermail_packages_zpush:
   - php
   - php-cli
   - php-imap
+  - php-mapi
+  - z-push-common
+  - z-push-config-apache
+  - z-push-backend-caldav
+  - z-push-backend-carddav
+  - z-push-backend-combined
+  - z-push-backend-imap
+  - z-push-ipc-sharedmemory
 
 ubermail_packages_logwatch:
   - libdate-manip-perl
+  - libnet-dns-perl
+  - libnet-ip-perl
   - logwatch
 
 ubermail_packages_roundcube:
