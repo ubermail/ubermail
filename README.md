@@ -17,7 +17,7 @@ While using Sovereign, i kept running into small but annoying issues, that mosty
 - [x] Postgres bump to 10
 - [x] Dropping postgrey in favour of the graylisting rspamd filter
 - [x] Bumping Solr/Tomcat
-- [ ] Bumping z-push
+- [x] Bumping z-push
 - [x] Adding support for https://github.com/imapsync/imapsync/
 - [x] Improving the webmail experience (roundcube bump, roundcube plugins, other clients)
 - [x] Code cleanup
