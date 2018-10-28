@@ -1,30 +1,17 @@
+- name: Add the apt key
+  apt_key:
+    url:  http://repo.z-hub.io/z-push:/final/Ubuntu_18.04/Release.key
+    state: present
+
+- name: Add the repo
+  apt_repository:
+    repo: deb http://repo.z-hub.io/z-push:/final/Ubuntu_18.04/ /
+
+
 - name: Install required packages for z-push
   apt: pkg={{ ubermail_packages_zpush }} state=present
   tags:
     - dependencies
-
-- name: Download z-push release
-  get_url:
-    url=http://download.z-push.org/final/2.1/z-push-{{ zpush_version }}.tar.gz
-    dest=/root/z-push-{{ zpush_version }}.tar.gz
-
-- name: Decompress z-push source
-  unarchive: src=/root/z-push-{{ zpush_version }}.tar.gz
-             dest=/root copy=no
-             creates=/root/z-push-{{ zpush_version }}
-
-- name: Create /usr/share/z-push
-  file: state=directory path=/usr/share/z-push
-
-- name: Copy z-push source files to /usr/share/z-push
-  shell: cp -R z-push-{{ zpush_version }}/* /usr/share/z-push/ chdir=/root
-  tags:
-    - skip_ansible_lint
-
-- name: Remove downloaded, temporary z-push source files
-  shell: rm -rf z-push* chdir=/root
-  tags:
-    - skip_ansible_lint
 
 - name: Ensure z-push state and log directories are in place
   file: state=directory path={{ item }} owner=www-data group=www-data mode=0755
@@ -33,8 +20,16 @@
     - /var/log/z-push
   notify: restart apache
 
+- name: Ensure /etc/z-push files are configured right
+  copy: src=etc_z-push_{{ item }} dest=/etc/z-push/{{ item }}
+  with_items:
+    - caldav.conf.php
+    - carddav.conf.php
+    - combined.conf.php
+    - imap.conf.php
+
 - name: Copy z-push's config.php into place
-  template: src=usr_share_z-push_config.php.j2 dest=/usr/share/z-push/config.php
+  template: src=etc_z-push_z-push.conf.php.j2 dest=/etc/z-push/z-push.conf.php
 
 - name: Create z-push apache alias and php configuration file
   copy: src=etc_apache2_conf.d_z-push.conf dest=/etc/apache2/conf-available/z-push.conf
