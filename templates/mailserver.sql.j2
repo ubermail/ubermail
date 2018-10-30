@@ -55,3 +55,82 @@ INSERT INTO "virtual_aliases" ("domain_id", "source", "destination")
     VALUES ('{{ virtual_alias.domain_pk_id }}', '{{ virtual_alias.source }}', '{{virtual_alias.destination }}');
 {% endfor %}
 {% endif %}
+
+{######################################################################################################}
+{# Create rfc2142 mailboxes as aliases unless they are already defined as a mailbox, or another alias #}
+{######################################################################################################}
+
+{% for virtual_domain in mail_virtual_domains if virtual_domain.rfc2142_destination is defined %}
+
+{% set ns = namespace(abuse=true) %}
+{% set ns.root=true %}
+{% set ns.hostmaster=true %}
+{% set ns.postmaster=true %}
+{% set ns.webmaster=true %}
+
+{# Skip aliasing mailboxes which are set up as real mailboxes #}
+
+{% for virtual_user in mail_virtual_users if virtual_user.domain == virtual_domain.name %}
+{% if ( virtual_user.account == 'abuse') %}
+{% set ns.abuse = false %}
+{% endif %}
+{% if ( virtual_user.account == 'root') %}
+{% set ns.root = false %}
+{% endif %}
+{% if ( virtual_user.account == 'hostmaster') %}
+{% set ns.hostmaster = false %}
+{% endif %}
+{% if ( virtual_user.account == 'postmaster') %}
+{% set ns.postmaster = false %}
+{% endif %}
+{% if ( virtual_user.account == 'webmaster') %}
+{% set ns.webmaster = false %}
+{% endif %}
+{% endfor %}
+
+{# Skip aliasing mailboxes which already have a defined alias (must be templated, postgres upsert 
+'on conflict do nothing' requires columns with the unique constraing )  #}
+
+{% for virtual_alias in mail_virtual_aliases if virtual_alias.domain_pk_id == virtual_domain.pk_id %}
+{% if ( virtual_alias.source == 'abuse@' + virtual_domain.name ) %}
+{% set ns.abuse = false %}
+{% endif %}
+{% if ( virtual_alias.source == 'root@' + virtual_domain.name ) %}
+{% set ns.root = false %}
+{% endif %}
+{% if ( virtual_alias.source == 'hostmaster@' + virtual_domain.name ) %}
+{% set ns.hostmaster = false %}
+{% endif %}
+{% if ( virtual_alias.source == 'postmaster@' + virtual_domain.name ) %}
+{% set ns.postmaster = false %}
+{% endif %}
+{% if ( virtual_alias.source == 'webmaster@' + virtual_domain.name ) %}
+{% set ns.webmaster = false %}
+{% endif %}
+{% endfor %}
+
+{# Do the inserts #}
+
+{% if ns.abuse %}
+INSERT INTO "virtual_aliases" ("domain_id", "source", "destination")
+    VALUES ('{{ virtual_domain.pk_id }}', 'abuse@{{ virtual_domain.name }}', '{{ virtual_domain.rfc2142_destination }}');
+{% endif %}
+{% if ns.root %}
+INSERT INTO "virtual_aliases" ("domain_id", "source", "destination")
+    VALUES ('{{ virtual_domain.pk_id }}', 'root@{{ virtual_domain.name }}', '{{ virtual_domain.rfc2142_destination }}');
+{% endif %}
+{% if ns.hostmaster %}
+INSERT INTO "virtual_aliases" ("domain_id", "source", "destination")
+    VALUES ('{{ virtual_domain.pk_id }}', 'hostmaster@{{ virtual_domain.name }}', '{{ virtual_domain.rfc2142_destination }}');
+{% endif %}
+{% if ns.postmaster %}
+INSERT INTO "virtual_aliases" ("domain_id", "source", "destination")
+    VALUES ('{{ virtual_domain.pk_id }}', 'postmaster@{{ virtual_domain.name }}', '{{ virtual_domain.rfc2142_destination }}');
+{% endif %}
+{% if ns.webmaster %}
+INSERT INTO "virtual_aliases" ("domain_id", "source", "destination")
+    VALUES ('{{ virtual_domain.pk_id }}', 'webmaster@{{ virtual_domain.name }}', '{{ virtual_domain.rfc2142_destination }}');
+{% endif %}
+
+{% endfor %}
+
