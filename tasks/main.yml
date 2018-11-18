@@ -75,6 +75,10 @@
 - include: logwatch.yml tags=logwatch
 - include: collectd.yml tags=collectd
 
+- set_fact: mxip="{{ lookup('dig', ansible_host) }}"
+- shell: |
+    echo '{{ mxip }}' | awk 'BEGIN{FS="."}{print $4"."$3"."$2"."$1".in-addr.arpa"}'
+  register: revip
 
 - name: Ensure /opt/ubermail exists
   file: state=directory path="/opt/ubermail" group=www-data owner=root

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <clientConfig version="1.1">
-    <emailProvider id="{{ domain }}">
-        <domain>{{ domain }}</domain>
-        <displayName>{{ domain }}</displayName>
-        <displayShortName>{{ domain }}</displayShortName>
+    {% for i in mail_virtual_domains %}
+    <emailProvider id="{{ i.name }}">
+        <domain>{{ i.name }}</domain>
+        <displayName>{{ i.name }}</displayName>
+        <displayShortName>{{ i.name }}</displayShortName>
         <incomingServer type="imap">
             <hostname>{{ mail_server_hostname }}</hostname>
             <port>993</port>
@@ -26,4 +27,5 @@
             <username>%EMAILADDRESS%</username>
         </outgoingServer>
     </emailProvider>
+    {% endfor %}
 </clientConfig>

@@ -1,15 +1,17 @@
 Mailserver (domain):      {{ domain }}
 Mailserver (hostname):    mail.{{ domain }}
+Mailserver (ip addr):     {{ mxip }}
 
 ###
 ### Mailserver DNS
 ###
-{{ domain }}                    MX  mail.{{ domain }}
-{{ domain }}                    A   {{ ansible_ssh_host }}
-autoconfig.{{ domain }}         A   {{ ansible_ssh_host }}
-mail.{{ domain }}               A   {{ ansible_ssh_host }}
-{{ domain }}                    TXT v=spf1 mx a a:mail.{{ domain }} ~all
-_dmarc.{{ domain }}             TXT v=DMARC1; p=reject rua=mailto:postmaster@{{ domain }}
+{{ domain }}                    MX     mail.{{ domain }}
+{{ domain }}                    A      {{ mxip }}
+autoconfig.{{ domain }}         A      {{ mxip }}
+mail.{{ domain }}               A      {{ mxip }}
+{{ domain }}                    TXT    v=spf1 mx a a:mail.{{ domain }} ~all
+_dmarc.{{ domain }}             TXT    v=DMARC1; p=reject rua=mailto:postmaster@{{ domain }}
+{{ revip.stdout }}              IN PTR mail.{{ domain }}
 
 ###
 ### Domain DNS {{ outer_item.name }}
