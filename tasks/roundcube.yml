@@ -7,6 +7,22 @@
   tags:
     - dependencies
 
+- name: Configure php (apache)
+  lineinfile:
+    dest: "/etc/php/{{ php_version }}/apache2/php.ini"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^;include_path=".:/usr/share/php"', line: 'include_path=".:/usr/share/php"' }
+
+- name: Configure php (cli)
+  lineinfile:
+    dest: "/etc/php/{{ php_version }}/cli/php.ini"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^;include_path=".:/usr/share/php"', line: 'include_path=".:/usr/share/php"' }
+
 - name: Clone roundcube
   git: repo=https://github.com/roundcube/roundcubemail.git
        dest=/var/www/roundcube
