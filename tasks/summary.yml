@@ -1,0 +1,7 @@
+---
+
+- name: "Create ubermail dns setup file for {{ outer_item.name }}"
+  template: src=summary.j2 dest="/opt/ubermail/{{ outer_item.name }}.txt" group=www-data owner=root
+
+- name: "Add dkim key for {{ outer_item.name }}"
+  shell: "cat /var/lib/rspamd/dkim/{{ outer_item.name }}.default.txt >> /opt/ubermail/{{ outer_item.name }}.txt"

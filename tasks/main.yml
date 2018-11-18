@@ -74,3 +74,13 @@
 - include: monit.yml tags=monit
 - include: logwatch.yml tags=logwatch
 - include: collectd.yml tags=collectd
+
+
+- name: Ensure /opt/ubermail exists
+  file: state=directory path="/opt/ubermail" group=www-data owner=root
+
+- include: summary.yml
+  with_items: "{{ mail_virtual_domains }}"
+  loop_control:
+    loop_var: outer_item
+
