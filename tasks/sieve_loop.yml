@@ -1,0 +1,10 @@
+---
+
+- name: "Set sieve file for {{ outer_item.account }}@{{ outer_item.domain }}"
+  template:
+    src: sieve.j2
+    dest: "/decrypted/{{ outer_item.domain }}/{{ outer_item.account }}/sieve/managesieve.sieve"
+    owner: vmail
+    group: vmail
+    force: no
+

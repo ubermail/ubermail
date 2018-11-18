@@ -83,3 +83,10 @@
     mode: 0755
     owner: root
     group: root
+
+
+- name: Ensure dovecot.socket is disabled
+  systemd:
+    name: dovecot.socket
+    state: stopped
+    enabled: no
