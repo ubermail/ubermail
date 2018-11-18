@@ -5,22 +5,24 @@
 # HTTPS or both, even though only the former is mentioned. Still, we allow clients to choose
 # between HTTP and HTTPS transports.
 
+
+{% for i in mail_virtual_domains %}
 <VirtualHost *:80>
-
-    ServerName {{ mail_server_autoconfig_hostname }}
-
+    ServerName autoconfig.{{ i.name }}
     DocumentRoot            "/var/www/autoconfig"
     Options                 -Indexes
-
     HostnameLookups         Off
 </VirtualHost>
 
 <VirtualHost *:443>
-    ServerName {{ mail_server_autoconfig_hostname }}
+    ServerName autoconfig.{{ i.name }}
     SSLEngine On
-
     DocumentRoot            "/var/www/autoconfig"
     Options                 -Indexes
-
     HostnameLookups         Off
 </VirtualHost>
+{% endfor %}
+
+
+
+

@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Pavel Stratil
+  company: Vaizard
+  description: "Ansible role to deploy a complete mailstack (postfix, dovecot, rspamd). Hardfork of the Sovereign project."
+  min_ansible_version: 2.7
+  license: GPL-3.0
+  platforms:
+  - name: Ubuntu
+    versions:
+    - 18.04
+  galaxy_tags:
+    - mailstack
+    - smtp
+    - imap
+    - mail
+    - webmail
+    - server
+    - postfix
+    - dovecot
+    - rspam
+    - mailserver
+dependencies: []
