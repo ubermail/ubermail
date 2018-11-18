@@ -1,0 +1,22 @@
+Mailserver (domain):      {{ domain }}
+Mailserver (hostname):    mail.{{ domain }}
+
+###
+### Mailserver DNS
+###
+{{ domain }}                    MX  mail.{{ domain }}
+{{ domain }}                    A   {{ ansible_ssh_host }}
+autoconfig.{{ domain }}         A   {{ ansible_ssh_host }}
+mail.{{ domain }}               A   {{ ansible_ssh_host }}
+{{ domain }}                    TXT v=spf1 mx a a:mail.{{ domain }} ~all
+_dmarc.{{ domain }}             TXT v=DMARC1; p=reject rua=mailto:postmaster@{{ domain }}
+
+###
+### Domain DNS {{ outer_item.name }}
+###
+{{ outer_item.name }}                    MX    mail.{{ domain }}
+mail.{{ outer_item.name }}               CNAME mail.{{ domain }}
+autoconfig.{{ outer_item.name }}         CNAME autoconfig.{{ domain }}
+{{ outer_item.name }}                    TXT   v=spf1 mx a a:mail.{{ domain }} ~all
+_dmarc.{{ outer_item.name }}             TXT   v=DMARC1; p=reject rua=mailto:postmaster@{{ domain }}
+
