@@ -1,3 +1,4 @@
+---
 - name: Install collectd
   apt: pkg=collectd state=present
 

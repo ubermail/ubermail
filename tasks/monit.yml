@@ -1,3 +1,4 @@
+---
 - name: Add monitoring vhost to apache
   copy: src=etc_apache2_sites-available_00-status.conf dest=/etc/apache2/sites-available/00-status.conf
 

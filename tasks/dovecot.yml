@@ -1,3 +1,4 @@
+---
 - name: Install Dovecot and related packages
   apt: pkg={{ ubermail_packages_dovecot }} update_cache=yes state=present
   tags:

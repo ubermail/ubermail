@@ -1,3 +1,4 @@
+---
 - name: Add the apt key
   apt_key:
     url:  http://repo.z-hub.io/z-push:/final/Ubuntu_18.04/Release.key
@@ -39,4 +40,4 @@
   notify: restart apache
 
 - name: Configure z-push logrotate
-  copy: src=etc_logrotate_z-push dest=/etc/logrotate.d/z-push owner=root group=root mode=0644
+  copy: src=etc_logrotate_z-push dest=/etc/logrotate.d/z-push.lr owner=root group=root mode=0644
