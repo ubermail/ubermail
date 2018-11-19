@@ -1,3 +1,4 @@
+---
 - name: Install encfs & fuse
   apt: pkg={{ ubermail_packages_encfs }} state=present
   tags:

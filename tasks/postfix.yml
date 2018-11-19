@@ -1,3 +1,4 @@
+---
 - name: Install Postfix and related packages
   apt: pkg={{ ubermail_packages_postfix }} state=present
   tags:

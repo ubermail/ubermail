@@ -1,3 +1,4 @@
+---
 - name: Install logwatch
   apt: pkg={{ ubermail_packages_logwatch }} state=present
   tags:

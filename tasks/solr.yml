@@ -1,3 +1,4 @@
+---
 - name: Install Solr and related packages
   apt: pkg={{ ubermail_packages_solr }} state=present
   tags:

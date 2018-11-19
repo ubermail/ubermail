@@ -1,14 +1,5 @@
 ---
 
-#mail_virtual_sieves:
-#  - domain:  vaizard.org
-#    account: pavel
-#    rule:
-#      - name: managed-redirect
-#        cond: "true"
-#        acts: |
-#           redirect "preposel@vaizard.xyz";
-
 - name: "Ensure path to sieve script exists"
   file:
     path: "/decrypted/{{ item.domain }}/{{ item.account }}/sieve"
@@ -24,7 +15,6 @@
     loop_var: outer_item
   when: mail_virtual_sieves and mail_virtual_sieves > 0
 
-# toto je blbe, pridat free zpusob
 - name: "Ensure sieve file has what it takes"
   blockinfile:
     path: "/decrypted/{{ item.domain }}/{{ item.account }}/sieve/managesieve.sieve"

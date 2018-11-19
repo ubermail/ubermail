@@ -1,3 +1,4 @@
+---
 - name: Install security-related packages
   apt: pkg={{ ubermail_packages_security }} state=present
   tags:
