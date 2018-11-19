@@ -1,6 +1,6 @@
 <VirtualHost *:80>
     ServerName {{ webmail_domain }}
-
+    ServerAlias mail.*.*
     Redirect permanent / https://{{ webmail_domain }}/
 </VirtualHost>
 
