@@ -99,6 +99,14 @@ mail_virtual_sieves:
 - Rspamd administration on https://mail.example.com/rspamd/
 - Autoconfig on https://autoconfig.example.com/
 
+## Testing, ensuring mail delivery
+
+- Verify DKIM/DMARC/SPF/PTR and more at https://www.mail-tester.com/ to probe for DNS settings errors.
+- Check https://whatismyipaddress.com/blacklist-check to see, if your server's IP address isn't listed on common blacklists.
+- Check if Google delivers your e-mails to gmail mailboxes. Even a perfectly managed mailserver with no spam behavior
+  can get penalized unless you register a txt record for your {{ domain }} with Google. All hail our new overlord :-/
+  Registration starts at https://postmaster.google.com
+
 ## Contributions welcomed
 
 Wanna send a PR? Wanna join as a dev/release eng.? Wanna help otherwise? Great! I'll be really happy to welcome you on board.

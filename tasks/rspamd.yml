@@ -44,12 +44,23 @@
     - "ip_score.conf"
     - "metrics.conf"
     - "milter_headers.conf"
+    - "multimap.conf"
     - "mx_check.conf"
     - "phishing.conf"
     - "surbl.conf"
     - "url_reputation.conf"
     - "url_tags.conf"
+  notify: restart rspamd
 
+- name: "Configure local blacklist/whitelist multimap files"
+  template: src="etc_rspamd_local.d_{{ item }}.j2" dest="/etc/rspamd/local.d/{{ item }}" mode=0646
+  with_items:
+    - "local_bl_from.map.inc"
+    - "local_bl_ip.map.inc"
+    - "local_bl_rcpt.map.inc"
+    - "local_wl_from.map.inc"
+    - "local_wl_ip.map.inc"
+    - "local_wl_rcpt.map.inc"
   notify: restart rspamd
 
 - name: Copy DKIM configuration into place
