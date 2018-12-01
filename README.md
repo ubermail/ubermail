@@ -101,11 +101,15 @@ mail_virtual_sieves:
 
 ## Testing, ensuring mail delivery
 
-- Verify DKIM/DMARC/SPF/PTR and more at https://www.mail-tester.com/ to probe for DNS settings errors.
+- Verify DKIM/DMARC/SPF/PTR and more at https://www.mail-tester.com/ to probe for DNS settings errors. You should get a 
+  perfect 10/10
 - Check https://whatismyipaddress.com/blacklist-check to see, if your server's IP address isn't listed on common blacklists.
 - Check if Google delivers your e-mails to gmail mailboxes. Even a perfectly managed mailserver with no spam behavior
-  can get penalized unless you register a txt record for your {{ domain }} with Google. All hail our new overlord :-/
-  Registration starts at https://postmaster.google.com
+  can get penalized. Try reporting to https://support.google.com/mail/contact/msgdelivery and/or registering txt record 
+  for your domains with at https://postmaster.google.com. All hail our new overlord :-/
+- Still got problems? Signup for a free account https://glockapps.com/ and run the tests.
+- If e-mails still don't deliver, try to remove all asigned IPv6 addresses and/or completely disable the IPv6 stack on your
+  server/VPS. Google (and some others providers) can penalize heavily, if IPv6 is detected on a mailserver.
 
 ## Contributions welcomed
 
