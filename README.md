@@ -107,9 +107,10 @@ mail_virtual_sieves:
 - Check if Google delivers your e-mails to gmail mailboxes. Even a perfectly managed mailserver with no spam behavior
   can get penalized. Try reporting to https://support.google.com/mail/contact/msgdelivery and/or registering txt record 
   for your domains with at https://postmaster.google.com. All hail our new overlord :-/
-- Still got problems? Signup for a free account https://glockapps.com/ and run the tests.
 - If e-mails still don't deliver, try to remove all asigned IPv6 addresses and/or completely disable the IPv6 stack on your
   server/VPS. Google (and some others providers) can penalize heavily, if IPv6 is detected on a mailserver.
+- Need more extensive delivery testing? Signup for a free account https://glockapps.com/ to run tests against all major
+  freemail providers.
 
 ## Contributions welcomed
 
