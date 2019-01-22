@@ -72,3 +72,26 @@ collectd_librato_api_token: "" # (optional)
 dovecot_ssl_dh_parameters_length: 4096
 dovecot_ssl_protocols: "!SSLv3 !TLSv1 !TLSv1.1 TLSv1.2"
 dovecot_ssl_cipher_list: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256"
+
+
+postgresql_default_auth_method: "trust"
+
+# pg_hba.conf
+postgresql_pg_hba_default:
+  - { type: local, database: all, user: "{{ db_admin_username }}", address: "", method: "{{ postgresql_default_auth_method }}", comment: "" }
+  - { type: local, database: all, user: all, address: "",             method: "{{ postgresql_default_auth_method }}", comment: '"local" is for Unix domain socket connections only' }
+  - { type: host,  database: all, user: all, address: "127.0.0.1/32", method: "{{ postgresql_default_auth_method }}", comment: "IPv4 local connections:" }
+  - { type: host,  database: all, user: all, address: "::1/128",      method: "{{ postgresql_default_auth_method }}", comment: "IPv6 local connections:" }
+  - { type: local, database: all, user: "{{ db_admin_username }}", address: "", method: "peer map=root_as_{{ db_admin_username }}", comment: "Local root Unix user, passwordless access" }
+  - { type: local, database: replication, user: '{{ db_admin_username }}', address: '', method: '{{ postgresql_default_auth_method }}', comment: '' }
+
+postgresql_pg_hba_passwd_hosts: []
+postgresql_pg_hba_trust_hosts: []
+postgresql_pg_hba_custom: []
+
+# pg_ident.conf
+postgresql_pg_ident:
+  - comment: "root is allowed to login as {{ db_admin_username }}"
+    mapname: "root_as_{{ db_admin_username }}"
+    system_username: "{{ db_admin_username }}"
+    pg_username: "{{ db_admin_username }}"

@@ -11,3 +11,21 @@
   become: true
   become_user: postgres
   postgresql_user: name={{ db_admin_username }} password={{ db_admin_password }} encrypted=yes
+
+- name: PostgreSQL | Update configuration (pg_hba.conf)
+  template:
+    src: pg_hba.conf.j2
+    dest: "/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf"
+    owner: "postgres"
+    group: "postgres"
+    mode: 0640
+  notify: restart postgresql
+
+- name: PostgreSQL | Update configuration (pg_ident.conf)
+  template:
+    src: pg_ident.conf.j2
+    dest: "/etc/postgresql/{{ postgres_version }}/main/pg_ident.conf"
+    owner: "postgres"
+    group: "postgres"
+    mode: 0640
+  notify: restart postgresql
