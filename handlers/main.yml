@@ -16,6 +16,9 @@
 - name: restart postfix
   service: name=postfix state=restarted
 
+- name: restart postgresql
+  service: name=postgresql state=restarted
+
 - name: restart dovecot
   service: name=dovecot state=restarted
 

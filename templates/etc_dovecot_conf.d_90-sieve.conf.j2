@@ -1,4 +1,5 @@
 plugin {
   sieve = file:~/sieve;active=~/.dovecot.sieve
   sieve_before = /var/lib/dovecot/sieve/before.d
+  sieve_max_redirects = {{ mail_sieve_max_redirects }}
 }
