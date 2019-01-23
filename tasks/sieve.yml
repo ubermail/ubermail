@@ -27,3 +27,24 @@
       {% endfor %}
   with_items: "{{ mail_virtual_sieves }}"
 
+- name: "Ensure ./sieve/managesieve.sieve -> ./dovecot.sieve symlink exist"
+  file:
+    src:  "/decrypted/{{ item.domain }}/{{ item.account }}/sieve/managesieve.sieve"
+    dest: "/decrypted/{{ item.domain }}/{{ item.account }}/.dovecot.sieve"
+    owner: vmail
+    group: vmail
+    state: link
+  with_items: "{{ mail_virtual_sieves }}"
+
+- name: "(Re)compile sieve scripts"
+  command: "/usr/bin/sievec .dovecot.sieve"
+  args:
+    chdir: "/decrypted/{{ item.domain }}/{{ item.account }}/"
+  with_items: "{{ mail_virtual_sieves }}"
+
+- name: "Ensure correct ownership of .dovecot.svbin files"
+  file:
+    path: "/decrypted/{{ item.domain }}/{{ item.account }}/.dovecot.sieve"
+    owner: vmail
+    group: vmail
+  with_items: "{{ mail_virtual_sieves }}"

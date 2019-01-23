@@ -51,6 +51,8 @@ mail_header_privacy: 1
 mail_virtual_domains: []
 mail_virtual_users: []
 mail_virtual_aliases: []
+mail_virtual_sieves: []
+mail_sieve_max_redirects: 5
 
 # zpush
 # common_timezone is a sovereign variable
