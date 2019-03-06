@@ -8,8 +8,12 @@
     - dependencies
     - ufw
 
-- name: Deny everything
-  ufw: policy=deny
+- name: Deny everything (incoming)
+  ufw: policy=deny direction=incoming
+  tags: ufw
+
+- name: Deny everything (routed)
+  ufw: policy=deny direction=routed
   tags: ufw
 
 - name: Set firewall rule for DNS
