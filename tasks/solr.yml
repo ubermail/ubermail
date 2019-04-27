@@ -20,5 +20,5 @@
   notify: restart solr
 
 - name: Ensure correct Solr file ownership
-  file: path=/decrypted/solr owner=tomcat group=tomcat recurse=yes
+  file: path=/decrypted/solr group=tomcat recurse=yes
   notify: restart solr
