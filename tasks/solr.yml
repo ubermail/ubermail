@@ -8,7 +8,7 @@
   copy: src=solr-schema.xml dest=/etc/solr/conf/schema.xml group=root owner=root
 
 - name: Copy tweaked Tomcat config file into place
-  copy: src=etc_tomcat8_server.xml dest=/etc/tomcat8/server.xml group=tomcat8 owner=root
+  copy: src=etc_tomcat9_server.xml dest=/etc/tomcat9/server.xml group=tomcat owner=root
   notify: restart solr
 
 - name: Copy tweaked Solr config file into place
@@ -16,5 +16,9 @@
   notify: restart solr
 
 - name: Create Solr index directory
-  file: state=directory path=/decrypted/solr group=tomcat8 owner=tomcat8
+  file: state=directory path=/decrypted/solr group=tomcat owner=tomcat
+  notify: restart solr
+
+- name: Ensure correct Solr file ownership
+  file: path=/decrypted/solr group=tomcat recurse=yes
   notify: restart solr
