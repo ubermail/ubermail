@@ -97,3 +97,6 @@ postgresql_pg_ident:
     mapname: "root_as_{{ db_admin_username }}"
     system_username: "{{ db_admin_username }}"
     pg_username: "{{ db_admin_username }}"
+
+# dovecot
+dovecot_mail_max_userip_connections: 30
