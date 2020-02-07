@@ -5,7 +5,7 @@
     state: present
 
 - name: Download LetsEncrypt release
-  git: repo=https://github.com/letsencrypt/letsencrypt
+  git: repo=https://github.com/certbot/certbot
        dest=/root/letsencrypt
        version=master
        force=yes

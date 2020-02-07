@@ -18,11 +18,11 @@
 - name: "Ensure sieve file has what it takes"
   blockinfile:
     path: "/decrypted/{{ item.domain }}/{{ item.account }}/sieve/managesieve.sieve"
-    block: |
+    block: |2
       {% for i in item.rule %}
       # rule:[{{ i.name }}]
       if {{ i.cond }} {
-           {{ i.acts }}
+        {{ i.acts | indent(2, false) }}
       }
       {% endfor %}
   with_items: "{{ mail_virtual_sieves }}"

@@ -42,7 +42,6 @@
   copy: src=etc_dovecot_conf.d_{{ item }} dest=/etc/dovecot/conf.d/{{ item }}
   with_items:
     - 10-auth.conf
-    - 10-mail.conf
     - 10-master.conf
     - 15-mailboxes.conf
     - 90-antispam.conf
@@ -53,6 +52,7 @@
 - name: Template additional Dovecot configuration
   template: src=etc_dovecot_conf.d_{{ item }}.j2 dest=/etc/dovecot/conf.d/{{ item }}
   with_items:
+    - 10-mail.conf
     - 10-ssl.conf
     - 10-logging.conf
     - 15-lda.conf
