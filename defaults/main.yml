@@ -40,7 +40,7 @@ mail_db_database: 'mailserver'
 mail_server_hostname: "mail.{{ domain }}"
 mail_server_autoconfig_hostname: "autoconfig.{{ domain }}"
 webmail_domain: "{{ mail_server_hostname }}" # Keep in sync with mail_server_hostname in mailserver role
-webmail_version: 1.4-rc1
+webmail_version: 1.4.3
 imapsync_version: imapsync-1.882
 le_domain: "{{ domain }}"
 dovecot_debug: "no"
