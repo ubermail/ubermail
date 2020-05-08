@@ -13,7 +13,7 @@
   with_items: "{{ mail_virtual_sieves }}"
   loop_control:
     loop_var: outer_item
-  when: mail_virtual_sieves and mail_virtual_sieves > 0
+  when: mail_virtual_sieves | length > 0
 
 - name: "Ensure sieve file has what it takes"
   blockinfile:

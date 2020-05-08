@@ -18,7 +18,7 @@ db_admin_password: "{{ lookup('password', secret + '/' + 'db_admin_password', le
 postgres_version: 10
 
 # let's encrypt
-letsencrypt_server: "https://acme-v01.api.letsencrypt.org/directory"
+letsencrypt_server: "https://acme-v02.api.letsencrypt.org/directory"
 
 # ssh
 kex_algorithms: "diffie-hellman-group-exchange-sha256"

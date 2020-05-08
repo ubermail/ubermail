@@ -62,7 +62,7 @@
 - include: dovecot.yml tags=dovecot
 - include: solr.yml tags=solr
 - include: sieve.yml
-  when: mail_virtual_sieves and mail_virtual_sieves > 0
+  when:  mail_virtual_sieves | length > 0
 - include: rspamd.yml tags=rspamd
 - include: checkrbl.yml tags=checkrbl
 - include: z-push.yml tags=zpush
