@@ -1,8 +1,8 @@
 require ["fileinto","imap4flags","regex"];
 if allof (header :regex "X-DSPAM-Result" "^(Spam|Virus|Bl[ao]cklisted)$", not header :contains "X-DSPAM-Reclassified" "Innocent")
 {
-    setflag "\\Seen";
-    fileinto "Spam";
-    stop;
+  setflag "\\Seen";
+  fileinto "Spam";
+  stop;
 }
 

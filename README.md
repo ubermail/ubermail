@@ -120,6 +120,11 @@ Wanna send a PR? Wanna join as a dev/release eng.? Wanna help otherwise? Great! 
 
 - Test your (inbound mail) spamfilter with https://www.emailsecuritycheck.net/
 - Test your (outbound mail) spammyness with https://www.mail-tester.com/
+- Spam lists etc. to check for:
+  - https://ipremoval.sms.symantec.com/ipr/lookup (Symantec)
+  - https://postmaster.verizonmedia.com/ (AOL)
+  - https://sendersupport.olc.protection.outlook.com/snds/addnetwork.aspx (Outlook)
+
 
 ## Similar projects
 

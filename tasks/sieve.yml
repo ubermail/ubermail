@@ -13,16 +13,16 @@
   with_items: "{{ mail_virtual_sieves }}"
   loop_control:
     loop_var: outer_item
-  when: mail_virtual_sieves and mail_virtual_sieves > 0
+  when: mail_virtual_sieves | length > 0
 
 - name: "Ensure sieve file has what it takes"
   blockinfile:
     path: "/decrypted/{{ item.domain }}/{{ item.account }}/sieve/managesieve.sieve"
-    block: |
+    block: |2
       {% for i in item.rule %}
       # rule:[{{ i.name }}]
       if {{ i.cond }} {
-           {{ i.acts }}
+        {{ i.acts | indent(2, false) }}
       }
       {% endfor %}
   with_items: "{{ mail_virtual_sieves }}"
